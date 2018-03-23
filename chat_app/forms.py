@@ -11,15 +11,16 @@ class ChatForm(forms.ModelForm):
         exclude = ['user', 'date']
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
+    username = forms.CharField(label='username')
+    password = forms.CharField(label='password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ['username', 'password']
 
 
 class RegisterForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = ['username', 'email', 'password']

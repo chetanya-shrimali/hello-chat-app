@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.views import View
 
 from chat_app.forms import ChatForm, LoginForm, RegisterForm
@@ -42,11 +44,17 @@ class LoginFormView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.user = self.request.user
-            post.save()
-            return render(request, self.template_name,
-                          {'form': form})
+
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(username=username, password=password)
+            print(user)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                return HttpResponse("Not logged in")
         else:
             return render(request, self.template_name, {'form': form})
 
@@ -64,10 +72,23 @@ class RegisterFormView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.user = self.request.user
-            post.save()
-            return render(request, self.template_name,
-                          {'form': form})
+            user = form.save(commit=False)
+
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('/')
         else:
             return render(request, self.template_name, {'form': form})
+
+
+def signout(request):
+    logout(request)
+    return redirect('chat_app:login')
