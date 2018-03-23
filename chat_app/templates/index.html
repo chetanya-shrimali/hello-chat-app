@@ -3,10 +3,29 @@
 {% block body %}
     <a href="{% url 'chat_app:login' %}">Login</a>
     <a href="{% url 'chat_app:register' %}">Register</a>
-    {% for chat in chats %}
-        {{ chat.user.username }}<br>
-        {{ chat.date.date }}<br>
-        {{ chat.date.time }}<br>
-    {% endfor %}
+    {#    {% for chat in chats %}#}
+    {#        {{ chat.user.username }}<br>#}
+    {#        {{ chat.date.date }}<br>#}
+    {#        {{ chat.date.time }}<br>#}
+    {#    {% endfor %}#}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                {% for field in form %}
+                    <form class="form-inline" action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="text">{{ field.errors }}</div>
+                        <label class="text">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
 
+    </div>
 {% endblock %}
