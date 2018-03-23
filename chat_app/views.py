@@ -1,14 +1,13 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse('Reached Index!!')
+    return render(request, 'index.html')
 
 
 def login(request):
-    return HttpResponse('Reached login!!')
+    return render(request, 'form_login.html')
 
 
 def register(request):
-    return HttpResponse('Reached register!!')
+    return render(request, 'form_register.html')

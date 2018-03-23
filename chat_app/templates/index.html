@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title%}Home{% endblock %}
 {% block body %}
-    Hello
+    <a href="{% url 'chat_app:login' %}">Login</a>
+    <a href="{% url 'chat_app:register' %}">Register</a>
 {% endblock %}
