@@ -1,13 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 
-from chat_app.forms import ChatForm
+from chat_app.forms import ChatForm, LoginForm, RegisterForm
 from chat_app.models import Chat
-
-
-def index(request):
-    chats = Chat.objects.all()
-    return render(request, 'index.html', {'chats': chats})
 
 
 class ChatFormView(View):
@@ -34,9 +29,45 @@ class ChatFormView(View):
             return render(request, self.template_name, {'form': form})
 
 
-def login(request):
-    return render(request, 'form_login.html')
+class LoginFormView(View):
+    form_class = LoginForm
+    template_name = 'form_login.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name,
+                      {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = self.request.user
+            post.save()
+            return render(request, self.template_name,
+                          {'form': form})
+        else:
+            return render(request, self.template_name, {'form': form})
 
 
-def register(request):
-    return render(request, 'form_register.html')
+class RegisterFormView(View):
+    form_class = RegisterForm
+    template_name = 'form_register.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name,
+                      {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = self.request.user
+            post.save()
+            return render(request, self.template_name,
+                          {'form': form})
+        else:
+            return render(request, self.template_name, {'form': form})
