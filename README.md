@@ -3,7 +3,7 @@
 hello-chat-app is a simple app based on single page chat. 
 All you need to do is get yourself registered and start chatting.
 
-### Installation (python 2.7)
+### Installation (python 2.7+)
 
 - Get the requirements
 
