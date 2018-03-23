@@ -10,5 +10,3 @@ class Chat(models.Model):
 
     def __str__(self):
         return self.user.username + "  " + str(self.date)
-
-
