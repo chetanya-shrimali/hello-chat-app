@@ -3,4 +3,8 @@
 {% block body %}
     <a href="{% url 'chat_app:login' %}">Login</a>
     <a href="{% url 'chat_app:register' %}">Register</a>
+    {% for chat in chats %}
+        {{ chat.user.username }}<br>
+        {{ chat.date.ctime }}<br>
+    {% endfor %}
 {% endblock %}

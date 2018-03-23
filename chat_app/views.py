@@ -1,8 +1,11 @@
 from django.shortcuts import render
 
+from chat_app.models import Chat
+
 
 def index(request):
-    return render(request, 'index.html')
+    chats = Chat.objects.all()
+    return render(request, 'index.html', {'chats':chats})
 
 
 def login(request):
