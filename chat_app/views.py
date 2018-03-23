@@ -16,7 +16,9 @@ class ChatFormView(View):
 
     def get(self, request):
         form = self.form_class(None)
-        return render(request, self.template_name, {'form': form})
+        chats = Chat.objects.all()
+        return render(request, self.template_name,
+                      {'form': form, 'chats': chats})
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -25,7 +27,9 @@ class ChatFormView(View):
             post = form.save(commit=False)
             post.user = self.request.user
             post.save()
-            return render(request, self.template_name, {'form': form})
+            chats = Chat.objects.all()
+            return render(request, self.template_name,
+                          {'form': form, 'chats': chats})
         else:
             return render(request, self.template_name, {'form': form})
 

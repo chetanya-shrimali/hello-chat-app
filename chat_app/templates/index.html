@@ -3,15 +3,21 @@
 {% block body %}
     <a href="{% url 'chat_app:login' %}">Login</a>
     <a href="{% url 'chat_app:register' %}">Register</a>
-    {#    {% for chat in chats %}#}
-    {#        {{ chat.user.username }}<br>#}
-    {#        {{ chat.date.date }}<br>#}
-    {#        {{ chat.date.time }}<br>#}
-    {#    {% endfor %}#}
+
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
+                <div class="chat-box">
+                <ul>
+                    {% for chat in chats %}
+                        <li><h3>{{ chat.user.username }}<span style="float: right;font-size: 12px;">{{ chat.date.date }}</span></h3></li>
+                        <li style="float: right; font-size: 10px;">{{ chat.date.time }}</li>
+                        <li>{{ chat.message }}</li>
+                        <hr>
+                    {% endfor %}
+                </ul>
+                </div>
                 {% for field in form %}
                     <form class="form-inline" action="" method="post">
                     {% csrf_token %}
