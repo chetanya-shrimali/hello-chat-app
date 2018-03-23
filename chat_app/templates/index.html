@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
-{% block title%}Home{% endblock %}
+{% block title %}Home{% endblock %}
 {% block body %}
     <a href="{% url 'chat_app:login' %}">Login</a>
     <a href="{% url 'chat_app:register' %}">Register</a>
     {% for chat in chats %}
         {{ chat.user.username }}<br>
-        {{ chat.date.ctime }}<br>
+        {{ chat.date.date }}<br>
+        {{ chat.date.time }}<br>
     {% endfor %}
+
 {% endblock %}
