@@ -16,7 +16,7 @@ class ChatFormView(View):
 
     def get(self, request):
         form = self.form_class(None)
-        chats = Chat.objects.all()
+        chats = Chat.objects.all().order_by('-date')
         return render(request, self.template_name,
                       {'form': form, 'chats': chats})
 
@@ -27,7 +27,7 @@ class ChatFormView(View):
             post = form.save(commit=False)
             post.user = self.request.user
             post.save()
-            chats = Chat.objects.all()
+            chats = Chat.objects.all().order_by('-date')
             return render(request, self.template_name,
                           {'form': form, 'chats': chats})
         else:

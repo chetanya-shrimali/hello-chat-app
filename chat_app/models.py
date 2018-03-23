@@ -5,7 +5,8 @@ from django.utils import timezone
 
 class Chat(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    message = models.CharField(max_length=250, default="Hello")
+    message = models.CharField(max_length=250,
+                               default="Type and text like 'Hello'  ")
     date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
