@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -64,7 +63,8 @@ class LoginFormView(View):
                 messages.success(request, "Logged in Successfully")
                 return redirect('/')
             else:
-                return HttpResponse("Not logged in")
+                messages.error(request, "Incorrect Credentials")
+                return redirect('chat_app:login')
         else:
             messages.error(request, "Incorrect credentials")
             return render(request, self.template_name, {'form': form})
