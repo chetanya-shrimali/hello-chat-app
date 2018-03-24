@@ -1,4 +1,4 @@
-# hello-chat-app
+# hello-chat-server
 
 hello-chat-app is a simple app based on single page chat. 
 All you need to do is get yourself registered and start chatting.
