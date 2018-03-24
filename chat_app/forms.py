@@ -6,6 +6,7 @@ from chat_app.models import Chat
 
 class ChatForm(forms.ModelForm):
     """Provides form for Chat model"""
+
     class Meta:
         model = Chat
         # fields = '__all__'
@@ -25,6 +26,9 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.ModelForm):
     """Provides form for User model"""
+    password = forms.CharField(label='password', widget=forms.PasswordInput)
+    confirm_password = forms.CharField(label='confirm_password')
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'confirm_password']
