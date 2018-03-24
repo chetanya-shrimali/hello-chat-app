@@ -104,4 +104,4 @@ class RegisterFormView(View):
 def signout(request):
     """logs out the user on request"""
     logout(request)
-    return redirect('chat_app:login')
+    return redirect('chat_app:index')
