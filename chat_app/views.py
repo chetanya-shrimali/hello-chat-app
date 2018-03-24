@@ -8,15 +8,19 @@ from chat_app.models import Chat
 
 
 class ChatFormView(View):
+    """Uses the ChatForm created in forms.py and handles 'GET' 'POST' requests
+    from index.html """
     form_class = ChatForm
     template_name = 'index.html'
 
+    # sends query and form on request
     def get(self, request):
         form = self.form_class(None)
         chats = Chat.objects.all().order_by('-date')
         return render(request, self.template_name,
                       {'form': form, 'chats': chats})
 
+    # stores data to database on request
     def post(self, request):
         form = self.form_class(request.POST)
 
@@ -32,14 +36,18 @@ class ChatFormView(View):
 
 
 class LoginFormView(View):
+    """Uses the LoginForm created in forms.py and handles 'GET' 'POST' requests
+        from form_register.html """
     form_class = LoginForm
     template_name = 'form_login.html'
 
+    # sends query and form on request
     def get(self, request):
         form = self.form_class(None)
         return render(request, self.template_name,
                       {'form': form})
 
+    # authenticates user request
     def post(self, request):
         form = self.form_class(request.POST)
 
@@ -60,14 +68,18 @@ class LoginFormView(View):
 
 
 class RegisterFormView(View):
+    """Uses the RegisterForm created in forms.py and handles 'GET' 'POST' requests
+        from form_register.html """
     form_class = RegisterForm
     template_name = 'form_register.html'
 
+    # sends query and form on request
     def get(self, request):
         form = self.form_class(None)
         return render(request, self.template_name,
                       {'form': form})
 
+    # stores data to database on request and authenticates the user
     def post(self, request):
         form = self.form_class(request.POST)
 
@@ -90,5 +102,6 @@ class RegisterFormView(View):
 
 
 def signout(request):
+    """logs out the user on request"""
     logout(request)
     return redirect('chat_app:login')
