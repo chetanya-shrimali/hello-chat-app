@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -60,10 +61,12 @@ class LoginFormView(View):
             print(user)
             if user is not None:
                 login(request, user)
+                messages.success(request, "Logged in Successfully")
                 return redirect('/')
             else:
                 return HttpResponse("Not logged in")
         else:
+            messages.error(request, "Incorrect credentials")
             return render(request, self.template_name, {'form': form})
 
 
@@ -91,13 +94,14 @@ class RegisterFormView(View):
             password = form.cleaned_data['password']
             user.set_password(password)
             user.save()
-
+            messages.success(request, "Registered Successfully")
             user = authenticate(username=username, password=password)
 
             if user is not None:
                 login(request, user)
                 return redirect('/')
         else:
+            messages.error(request, "Incorrect credentials")
             return render(request, self.template_name, {'form': form})
 
 
