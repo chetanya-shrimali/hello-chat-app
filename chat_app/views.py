@@ -92,14 +92,19 @@ class RegisterFormView(View):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
             user.set_password(password)
-            user.save()
-            messages.success(request, "Registered Successfully")
-            user = authenticate(username=username, password=password)
+            if password == confirm_password:
+                user.save()
+                messages.success(request, "Registered Successfully")
+                user = authenticate(username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('/')
+                if user is not None:
+                    login(request, user)
+                    return redirect('/')
+            else:
+                messages.error(request, "Incorrect credentials")
+                return render(request, self.template_name, {'form': form})
         else:
             messages.error(request, "Incorrect credentials")
             return render(request, self.template_name, {'form': form})

@@ -27,7 +27,8 @@ class LoginForm(forms.Form):
 class RegisterForm(forms.ModelForm):
     """Provides form for User model"""
     password = forms.CharField(label='password', widget=forms.PasswordInput)
-    confirm_password = forms.CharField(label='confirm_password')
+    confirm_password = forms.CharField(label='confirm_password',
+                                       widget=forms.PasswordInput)
 
     class Meta:
         model = User
