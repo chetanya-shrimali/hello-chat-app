@@ -12,7 +12,7 @@ All you need to do is get yourself registered and start chatting.
   
 - Fork and clone the expenses-app repository
 
-	`$ git clone https://github.com/<Username>/hello-chat-app`
+	`$ git clone https://github.com/<Username>/hello-chat-server`
 
 - Install PostgreSQL 9.5.x of later. (10 preferred) 
 
@@ -27,7 +27,7 @@ All you need to do is get yourself registered and start chatting.
     
 - Now get the project specific requirements 
  	
-	`$ cd hello_chat_server`
+	`$ cd hello-chat-server`
 	
   	`$ pip install -r requirements.txt`
 
