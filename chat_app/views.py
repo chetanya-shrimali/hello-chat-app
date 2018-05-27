@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
 from chat_app.forms import ChatForm, LoginForm, RegisterForm
 from chat_app.models import Chat
@@ -17,6 +18,17 @@ class ChatFormView(View):
     def get(self, request):
         form = self.form_class(None)
         chats = Chat.objects.all().order_by('-date')
+        # vector = SearchVector('message', weight='A')
+        # vector_venture = SearchVector('title', weight='B') + SearchVector('description', weight='C')
+        # query = SearchQuery('innovation')
+        # print( Chat.objects.annotate(search=SearchVector('message')
+        # ).filter(search__icontains=query))
+        # Chat.objects.extra()
+        # to_tsvector(COALESCE(school, '')) @@ (plainto_tsquery('alamo')) = true;
+        # where=["to_tsvector('english', coalesce(school, '')) @@ (plainto_tsquery(%s)) = true"]
+        #   final query
+        result = Chat.objects.extra(where=["to_tsvector(coalesce(message, '')) @@ (to_tsquery('inn:*')) = true"]).values('message')
+        print(result)
         return render(request, self.template_name,
                       {'form': form, 'chats': chats})
 
