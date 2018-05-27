@@ -18,12 +18,12 @@ All you need to do is get yourself registered and start chatting.
 
 - Configure a local test database as follows
 
-    - Create a local test `hellochat` database user. Use `test` as password when prompted
+    - Create a local test user named `hellochat`. Use `test` as password when prompted
       (otherwise use any password and update your settings locally).
       `sudo -u postgres createuser --no-createrole --no-superuser --login --inherit --createdb --pwprompt hellochat`
     
     - Create a local test `hellochatserver` database.
-      `createdb --encoding=utf-8 --owner=scancode  --user=scancode --password --host=localhost hellochatserver`
+      `createdb --encoding=utf-8 --owner=hellochat  --user=hellochat --password --host=localhost hellochatserver`
     
 - Now get the project specific requirements 
  	
