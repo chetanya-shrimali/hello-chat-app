@@ -14,4 +14,5 @@ SELECT school, city
 FROM schools
 WHERE (school_city_idx @@ (to_tsquery('mission & viej:*')) = true);
 
+# working query
 Chat.objects.extra(where=["to_tsvector(coalesce(message, '')) @@ (to_tsquery('inn:*')) = true"]).values('message')

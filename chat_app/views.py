@@ -26,9 +26,13 @@ class ChatFormView(View):
         # Chat.objects.extra()
         # to_tsvector(COALESCE(school, '')) @@ (plainto_tsquery('alamo')) = true;
         # where=["to_tsvector('english', coalesce(school, '')) @@ (plainto_tsquery(%s)) = true"]
+
+        ####################################################
         #   final query
+
         result = Chat.objects.extra(where=["to_tsvector(coalesce(message, '')) @@ (to_tsquery('inn:*')) = true"]).values('message')
         print(result)
+        ####################################################
         return render(request, self.template_name,
                       {'form': form, 'chats': chats})
 
